@@ -1,9 +1,8 @@
-import { Contact } from '../domain/Contact'
-import { ContactsRepository } from '../domain/ContactsRepository'
+import { type Contact } from '../domain/Contact.js'
+import { type ContactsRepository } from '../domain/ContactsRepository.js'
 
 export function AddContact (contactsRepository: ContactsRepository) {
-
-	return function (contact: Contact): void {
+	return (contact: Contact): void => {
 		contactsRepository.add(contact)
 	}
 }

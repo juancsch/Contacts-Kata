@@ -1,37 +1,34 @@
-import { Contact } from '../contacts/domain/Contact'
-import { contacts } from '../contacts'
+import { Contact } from '../contacts/domain/Contact.js'
+import { contacts } from '../contacts/module.js'
 
-export interface ContactsListView {
-	showWelcomeMessage(): void
-	showByeMessage(): void
-	getContact(): Promise<Contact>
-	listContacts(contacts: Contact[]): void
-}
+import { type ContactsListView } from './ConstactsListView.js'
 
 export class ContactsListPresenter {
-
-	private contactsListView: ContactsListView
+	private readonly contactsListView: ContactsListView
 
 	constructor (view: ContactsListView) {
 		this.contactsListView = view
 	}
 
-	onInit (): void {
+	start (): void {
 		this.contactsListView.showWelcomeMessage()
 		this.contactsListView.listContacts(
 			contacts.getContacts()
 		)
 	}
 
-	async onAddContact (): Promise<void> {
+	async addContact (): Promise<void> {
 		const contact = await this.contactsListView.getContact()
-		contacts.addContact(contact)
+		if (contact === 'bye') {
+			throw new Error('bye')
+		}
+		contacts.addContact(Contact.from(contact))
 		this.contactsListView.listContacts(
 			contacts.getContacts()
 		)
 	}
 
-	onStop (): void {
+	stop (): void {
 		this.contactsListView.showByeMessage()
 	}
 }

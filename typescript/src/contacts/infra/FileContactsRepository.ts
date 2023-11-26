@@ -1,9 +1,8 @@
-import { readFile, writeFile } from 'fs/promises'
-import { Contact } from '../domain/Contact'
-import { ContactsRepository } from '../domain/ContactsRepository'
+// import { readFile, writeFile } from 'fs/promises'
+import { type Contact } from '../domain/Contact.js'
+import { type ContactsRepository } from '../domain/ContactsRepository.js'
 
 export function FileContactsRepository (filepath: string): ContactsRepository {
-
 	const contacts: Contact[] = []
 	// read file ...
 

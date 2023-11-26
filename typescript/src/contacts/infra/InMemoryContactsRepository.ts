@@ -1,5 +1,5 @@
-import { Contact } from '../domain/Contact'
-import { ContactsRepository } from '../domain/ContactsRepository'
+import { type Contact } from '../domain/Contact.js'
+import { type ContactsRepository } from '../domain/ContactsRepository.js'
 
 export const inMemoryContactsRepository: ContactsRepository = {
 	add,

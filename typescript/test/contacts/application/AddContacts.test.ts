@@ -1,13 +1,13 @@
-import { AddContact } from '../../../src/contacts/application/AddContact'
-import { Contact } from '../../../src/contacts/domain/Contact'
+import { vi, expect, describe, it } from 'vitest'
+
+import { AddContact } from '../../../src/contacts/application/AddContact.js'
+import { Contact } from '../../../src/contacts/domain/Contact.js'
 
 describe('Add Contacts', function () {
-
 	it('should add contacts', () => {
-
 		const contactRepositoryMock = {
-			add: jest.fn(),
-			get: jest.fn()
+			add: vi.fn(),
+			get: vi.fn()
 		}
 		const addContact = AddContact(contactRepositoryMock)
 

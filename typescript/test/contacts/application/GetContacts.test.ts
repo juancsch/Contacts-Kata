@@ -1,14 +1,14 @@
-import { GetContacts } from '../../../src/contacts/application/GetContacts'
-import { Contact } from '../../../src/contacts/domain/Contact'
+import { vi, expect, describe, it } from 'vitest'
+
+import { GetContacts } from '../../../src/contacts/application/GetContacts.js'
+import { Contact } from '../../../src/contacts/domain/Contact.js'
 
 describe('Get Contacts', function () {
-
 	it('should return list of contacts when there are contacts', () => {
-
 		const contact = Contact.from('pepe luis 666')
 		const contactRepositoryMock = {
-			add: jest.fn(),
-			get: jest.fn(() => [contact])
+			add: vi.fn(),
+			get: vi.fn(() => [contact])
 		}
 		const getContacts = GetContacts(contactRepositoryMock)
 
@@ -19,10 +19,9 @@ describe('Get Contacts', function () {
 	})
 
 	it('should return empty list when there are not contacts', () => {
-
 		const contactRepositoryMock = {
-			add: jest.fn(),
-			get: jest.fn(() => [])
+			add: vi.fn(),
+			get: vi.fn(() => [])
 		}
 		const getContacts = GetContacts(contactRepositoryMock)
 

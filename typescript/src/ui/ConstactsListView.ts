@@ -1,8 +1,10 @@
-import { createInterface } from 'readline'
-import { Contact } from '../contacts/domain/Contact'
-import { ContactsListView } from './ContactsListPresenter'
+import { createInterface } from 'readline/promises'
 
-export const contactsListView: ContactsListView = {
+import { type Contact } from '../contacts/domain/Contact.js'
+
+export type ContactsListView = typeof contactsListView
+
+export const contactsListView = {
 	showWelcomeMessage,
 	showByeMessage,
 	getContact,
@@ -14,7 +16,9 @@ const rl = createInterface({
 	output: process.stdout
 })
 
-const question = (text: string) => new Promise<string>(resolve => rl.question(text, resolve))
+async function question (text: string) {
+	return await rl.question(text)
+}
 
 function showWelcomeMessage (): void {
 	console.log('Welcome to contacts manage ...')
@@ -24,11 +28,10 @@ function showByeMessage (): void {
 	console.log('... see you soon!!')
 }
 
-async function getContact (): Promise<Contact> {
-	const token = await question('new contact?\n> ')
-	return Contact.from(token)
+async function getContact (): Promise<string> {
+	return await question('new contact?\n> ')
 }
 
 function listContacts (contacts: Contact[]): void {
-	console.log('contacts\n', contacts)
+	console.log('contacts:', contacts)
 }
